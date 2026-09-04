@@ -269,7 +269,7 @@ def student_dashboard():
                 st.divider()
                 st.markdown("**Quick Action:**")
                 if st.button("Explore What-If Simulator 🔮", use_container_width=True):
-                    st.session_state.student_nav_selection = "🔮 What-If Simulator"
+                    st.session_state.student_pending_nav = "🔮 What-If Simulator"
                     st.rerun()
 
 

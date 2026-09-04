@@ -462,6 +462,13 @@ def render_sidebar(role, logout_callback):
     menu_items = menus.get(role, ["🏠 Dashboard"])
     role_key = f"{role}_nav_selection"
 
+    # Apply pending programmatic navigation before widget creation
+    pending_key = f"{role}_pending_nav"
+    if pending_key in st.session_state:
+        target_nav = st.session_state.pop(pending_key)
+        if target_nav in menu_items:
+            st.session_state[role_key] = target_nav
+
     user_name = st.session_state.get("name") or "User"
     campus_id = st.session_state.get("campus_id") or "ID"
 
