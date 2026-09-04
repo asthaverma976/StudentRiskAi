@@ -432,22 +432,72 @@ def student_dashboard():
         st.write("Simulate how improving your attendance, internal marks, or study habits will lower your risk level in real-time.")
         st.divider()
 
+        # Preset state initialization
+        if "sim_att" not in st.session_state:
+            st.session_state.sim_att = float(data["attendance"])
+            st.session_state.sim_internal = float(data["internal_marks"])
+            st.session_state.sim_assign = float(data["assignment_score"])
+            st.session_state.sim_study = float(data["study_hours"])
+            st.session_state.sim_quiz = float(data["quiz_score"])
+            st.session_state.sim_part = float(data["participation"])
+            st.session_state.sim_practical = float(data["practical_marks"])
+            st.session_state.sim_backlogs = int(data["backlogs"])
+            st.session_state.sim_failures = int(data["previous_failures"])
+
+        # Quick Scenario Presets
+        st.markdown("##### ⚡ Quick Scenario Presets:")
+        ps1, ps2, ps3, ps4 = st.columns(4)
+        with ps1:
+            if st.button("🎯 Boost Attendance (85%)", use_container_width=True):
+                st.session_state.sim_att = 85.0
+                st.session_state.sim_study = max(3.5, float(data["study_hours"]))
+                st.rerun()
+        with ps2:
+            if st.button("📚 Clear Backlogs & 5h Study", use_container_width=True):
+                st.session_state.sim_backlogs = 0
+                st.session_state.sim_study = 5.0
+                st.session_state.sim_att = max(75.0, float(data["attendance"]))
+                st.rerun()
+        with ps3:
+            if st.button("🌟 Target 85%+ All-Round", use_container_width=True):
+                st.session_state.sim_att = 88.0
+                st.session_state.sim_internal = 85.0
+                st.session_state.sim_assign = 88.0
+                st.session_state.sim_study = 5.5
+                st.session_state.sim_quiz = 85.0
+                st.session_state.sim_part = 90.0
+                st.session_state.sim_practical = 85.0
+                st.session_state.sim_backlogs = 0
+                st.rerun()
+        with ps4:
+            if st.button("🔄 Reset Baseline", use_container_width=True):
+                st.session_state.sim_att = float(data["attendance"])
+                st.session_state.sim_internal = float(data["internal_marks"])
+                st.session_state.sim_assign = float(data["assignment_score"])
+                st.session_state.sim_study = float(data["study_hours"])
+                st.session_state.sim_quiz = float(data["quiz_score"])
+                st.session_state.sim_part = float(data["participation"])
+                st.session_state.sim_practical = float(data["practical_marks"])
+                st.session_state.sim_backlogs = int(data["backlogs"])
+                st.session_state.sim_failures = int(data["previous_failures"])
+                st.rerun()
+
         with st.container(border=True):
             st.markdown("#### 🎛️ Adjust Projected Academic Inputs")
             
             w_c1, w_c2, w_c3 = st.columns(3)
             with w_c1:
-                w_att = st.slider("Projected Attendance (%)", 0.0, 100.0, float(data["attendance"]), step=1.0)
-                w_internal = st.slider("Projected Internal Marks", 0.0, 100.0, float(data["internal_marks"]), step=1.0)
-                w_assign = st.slider("Projected Assignment Score", 0.0, 100.0, float(data["assignment_score"]), step=1.0)
+                w_att = st.slider("Projected Attendance (%)", 0.0, 100.0, float(st.session_state.sim_att), step=1.0, key="sim_att")
+                w_internal = st.slider("Projected Internal Marks", 0.0, 100.0, float(st.session_state.sim_internal), step=1.0, key="sim_internal")
+                w_assign = st.slider("Projected Assignment Score", 0.0, 100.0, float(st.session_state.sim_assign), step=1.0, key="sim_assign")
             with w_c2:
-                w_study = st.slider("Projected Study Hours / Day", 0.0, 12.0, float(data["study_hours"]), step=0.5)
-                w_quiz = st.slider("Projected Quiz Score", 0.0, 100.0, float(data["quiz_score"]), step=1.0)
-                w_part = st.slider("Projected Participation", 0.0, 100.0, float(data["participation"]), step=1.0)
+                w_study = st.slider("Projected Study Hours / Day", 0.0, 12.0, float(st.session_state.sim_study), step=0.5, key="sim_study")
+                w_quiz = st.slider("Projected Quiz Score", 0.0, 100.0, float(st.session_state.sim_quiz), step=1.0, key="sim_quiz")
+                w_part = st.slider("Projected Participation", 0.0, 100.0, float(st.session_state.sim_part), step=1.0, key="sim_part")
             with w_c3:
-                w_practical = st.slider("Projected Practical Marks", 0.0, 100.0, float(data["practical_marks"]), step=1.0)
-                w_backlogs = st.number_input("Projected Active Backlogs", 0, 15, int(data["backlogs"]))
-                w_failures = st.number_input("Previous Failures", 0, 15, int(data["previous_failures"]))
+                w_practical = st.slider("Projected Practical Marks", 0.0, 100.0, float(st.session_state.sim_practical), step=1.0, key="sim_practical")
+                w_backlogs = st.number_input("Projected Active Backlogs", 0, 15, int(st.session_state.sim_backlogs), key="sim_backlogs")
+                w_failures = st.number_input("Previous Failures", 0, 15, int(st.session_state.sim_failures), key="sim_failures")
 
             sim_btn = st.button("🚀 Calculate Projected Outcome", use_container_width=True, type="primary")
 
@@ -468,6 +518,10 @@ def student_dashboard():
         sim_res = predict_risk(sim_data)
         sim_risk = sim_res["risk_level"]
         sim_conf = float(sim_res["confidence"]) * 100 if float(sim_res["confidence"]) <= 1 else float(sim_res["confidence"])
+        sim_probs = sim_res.get("probabilities", {})
+
+        if sim_btn:
+            st.toast("⚡ Projected academic outcome recalculated successfully!", icon="✅")
 
         st.markdown("<div style='height: 15px;'></div>", unsafe_allow_html=True)
         st.markdown("### 📊 Side-by-Side Scenario Comparison")
@@ -477,21 +531,47 @@ def student_dashboard():
             with st.container(border=True):
                 st.markdown("#### 📌 Current Reality")
                 st.markdown(f"### {render_risk_badge(risk, confidence)}", unsafe_allow_html=True)
-                st.caption(f"Attendance: {float(data['attendance']):.0f}% • Backlogs: {int(data['backlogs'])} • Study: {float(data['study_hours']):.1f}h")
+                st.markdown(f"• **Attendance:** `{float(data['attendance']):.0f}%`  \n• **Backlogs:** `{int(data['backlogs'])}`  \n• **Study Hours:** `{float(data['study_hours']):.1f}h/day`")
 
         with comp_right:
             with st.container(border=True):
                 st.markdown("#### ✨ Simulated Outcome")
                 st.markdown(f"### {render_risk_badge(sim_risk, sim_conf)}", unsafe_allow_html=True)
-                st.caption(f"Attendance: {w_att:.0f}% • Backlogs: {w_backlogs} • Study: {w_study:.1f}h")
+                
+                # Delta indicators
+                att_diff = w_att - float(data['attendance'])
+                att_sign = f"+{att_diff:.0f}%" if att_diff >= 0 else f"{att_diff:.0f}%"
+                back_diff = w_backlogs - int(data['backlogs'])
+                back_sign = f"+{back_diff}" if back_diff > 0 else (f"{back_diff}" if back_diff < 0 else "0")
+
+                st.markdown(f"• **Attendance:** `{w_att:.0f}%` ({att_sign})  \n• **Backlogs:** `{w_backlogs}` ({back_sign})  \n• **Study Hours:** `{w_study:.1f}h/day`")
+
+        # Live Probability Distribution Bar
+        if sim_probs:
+            with st.container(border=True):
+                st.markdown("#### 📈 AI Model Probability Distribution (Simulated)")
+                p_c1, p_c2, p_c3 = st.columns(3)
+                low_p = sim_probs.get("Low", 0.0) * 100
+                med_p = sim_probs.get("Medium", 0.0) * 100
+                high_p = sim_probs.get("High", 0.0) * 100
+                
+                with p_c1:
+                    st.metric("🟢 Low Risk Probability", f"{low_p:.1f}%")
+                    st.progress(min(1.0, max(0.0, low_p / 100.0)))
+                with p_c2:
+                    st.metric("🟡 Medium Risk Probability", f"{med_p:.1f}%")
+                    st.progress(min(1.0, max(0.0, med_p / 100.0)))
+                with p_c3:
+                    st.metric("🔴 High Risk Probability", f"{high_p:.1f}%")
+                    st.progress(min(1.0, max(0.0, high_p / 100.0)))
 
         if sim_risk != risk or sim_conf != confidence:
             if sim_risk == "Low" and risk in ["High", "Medium"]:
-                st.success("🎉 Outstanding! Your simulated adjustments would successfully transition you into the **Low Risk** category!")
+                st.success("🎉 **Outstanding!** Your simulated adjustments would successfully transition you into the **Low Risk** category!")
             elif sim_risk == "Medium" and risk == "High":
-                st.info("📈 Significant progress! These improvements reduce your risk from High to Medium.")
+                st.info("📈 **Significant progress!** These improvements reduce your risk from High to Medium.")
             elif sim_risk == "High" and risk in ["Low", "Medium"]:
-                st.warning("⚠️ Caution: Decreasing your attendance or study hours would escalate your risk to High.")
+                st.warning("⚠️ **Caution:** Decreasing your attendance or study hours would escalate your risk to High.")
 
 
     # =====================================================

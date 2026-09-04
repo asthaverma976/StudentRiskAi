@@ -193,19 +193,28 @@ def inject_styles():
         }
 
         .stButton > button[kind="primary"], 
+        [data-testid="stBaseButton-primary"],
         [data-testid="stFormSubmitButton"] button {
             background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%) !important;
-            color: white !important;
+            color: #FFFFFF !important;
             border: 1px solid #3B82F6 !important;
             box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3) !important;
             font-weight: 700 !important;
         }
 
+        .stButton > button[kind="primary"] *, 
+        [data-testid="stBaseButton-primary"] *,
+        [data-testid="stFormSubmitButton"] button * {
+            color: #FFFFFF !important;
+            font-weight: 700 !important;
+        }
+
         .stButton > button[kind="primary"]:hover, 
+        [data-testid="stBaseButton-primary"]:hover,
         [data-testid="stFormSubmitButton"] button:hover {
             background: linear-gradient(135deg, #1D4ED8 0%, #1E40AF 100%) !important;
             box-shadow: 0 6px 20px rgba(37, 99, 235, 0.45) !important;
-            color: white !important;
+            color: #FFFFFF !important;
             transform: translateY(-2px) !important;
         }
 
