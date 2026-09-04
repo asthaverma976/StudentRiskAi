@@ -233,6 +233,56 @@ def register_student(campus_id, name, password, profile_data=None):
 
 
 # =========================================================
+# UPDATE STUDENT PROFILE
+# =========================================================
+
+def update_student_profile(campus_id, profile_data):
+    """
+    Updates the academic profile for a student in the student_profiles table.
+    """
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        UPDATE student_profiles
+        SET
+            attendance = ?,
+            internal_marks = ?,
+            assignment_score = ?,
+            previous_cgpa = ?,
+            study_hours = ?,
+            backlogs = ?,
+            practical_marks = ?,
+            quiz_score = ?,
+            previous_failures = ?,
+            participation = ?
+        WHERE campus_id = ?
+    """, (
+        float(profile_data.get("attendance", 0)),
+        float(profile_data.get("internal_marks", 0)),
+        float(profile_data.get("assignment_score", 0)),
+        float(profile_data.get("previous_cgpa", 0)),
+        float(profile_data.get("study_hours", 0)),
+        int(profile_data.get("backlogs", 0)),
+        float(profile_data.get("practical_marks", 0)),
+        float(profile_data.get("quiz_score", 0)),
+        int(profile_data.get("previous_failures", 0)),
+        float(profile_data.get("participation", 0)),
+        campus_id
+    ))
+
+    conn.commit()
+    conn.close()
+
+    try:
+        st.cache_data.clear()
+    except Exception:
+        pass
+
+    return True
+
+
+# =========================================================
 # MENTOR REGISTRATION
 # =========================================================
 

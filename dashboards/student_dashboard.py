@@ -4,7 +4,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 
 from auth import require_role, logout_user
-from database import get_connection
+from database import get_connection, update_student_profile
 from prediction import predict_risk, save_prediction
 from intervention import (
     generate_intervention_plan,
@@ -184,13 +184,10 @@ def student_dashboard():
         st.info("Please contact your campus administrator to initialize your student records.")
         return
 
-    # Compute or retrieve AI Prediction
-    if "student_prediction" not in st.session_state:
-        pred_result = predict_risk(data)
-        st.session_state.student_prediction = pred_result
-        save_prediction(campus_id, pred_result)
-    else:
-        pred_result = st.session_state.student_prediction
+    # Compute fresh AI Prediction from current student profile
+    pred_result = predict_risk(data)
+    st.session_state.student_prediction = pred_result
+    save_prediction(campus_id, pred_result)
 
     risk = pred_result["risk_level"]
     raw_conf = pred_result["confidence"]
@@ -341,6 +338,52 @@ def student_dashboard():
             style_plotly_chart(fig_radar, height=360)
             st.plotly_chart(fig_radar, use_container_width=True)
 
+        st.markdown("<div style='height: 12px;'></div>", unsafe_allow_html=True)
+
+        # Interactive Academic Details Editor
+        with st.expander("✏️ **Edit & Update My Academic Records (Real Database Sync)**", expanded=False):
+            st.caption("Update your active scores, attendance, or backlogs. On saving, the AI risk model will instantly recalculate your academic standing.")
+
+            with st.form("edit_profile_form", border=False):
+                ep_c1, ep_c2, ep_c3 = st.columns(3)
+
+                with ep_c1:
+                    new_att = st.number_input("Attendance (%)", min_value=0.0, max_value=100.0, value=float(data["attendance"]), step=1.0)
+                    new_internal = st.number_input("Internal Marks (out of 100)", min_value=0.0, max_value=100.0, value=float(data["internal_marks"]), step=1.0)
+                    new_assign = st.number_input("Assignment Score (out of 100)", min_value=0.0, max_value=100.0, value=float(data["assignment_score"]), step=1.0)
+                    new_cgpa = st.number_input("Previous CGPA (out of 10.0)", min_value=0.0, max_value=10.0, value=float(data["previous_cgpa"]), step=0.05)
+
+                with ep_c2:
+                    new_study = st.number_input("Daily Study Hours (hrs/day)", min_value=0.0, max_value=16.0, value=float(data["study_hours"]), step=0.5)
+                    new_backlogs = st.number_input("Active Backlogs Count", min_value=0, max_value=20, value=int(data["backlogs"]), step=1)
+                    new_failures = st.number_input("Previous Failures Count", min_value=0, max_value=20, value=int(data["previous_failures"]), step=1)
+
+                with ep_c3:
+                    new_practical = st.number_input("Practical Marks (out of 100)", min_value=0.0, max_value=100.0, value=float(data["practical_marks"]), step=1.0)
+                    new_quiz = st.number_input("Quiz Score (out of 100)", min_value=0.0, max_value=100.0, value=float(data["quiz_score"]), step=1.0)
+                    new_part = st.number_input("Class Participation (out of 100)", min_value=0.0, max_value=100.0, value=float(data["participation"]), step=1.0)
+
+                st.markdown("<div style='height: 10px;'></div>", unsafe_allow_html=True)
+                save_profile_btn = st.form_submit_button("💾 Save Changes & Update AI Assessment", type="primary", use_container_width=True)
+
+            if save_profile_btn:
+                updated_payload = {
+                    "attendance": new_att,
+                    "internal_marks": new_internal,
+                    "assignment_score": new_assign,
+                    "previous_cgpa": new_cgpa,
+                    "study_hours": new_study,
+                    "backlogs": new_backlogs,
+                    "practical_marks": new_practical,
+                    "quiz_score": new_quiz,
+                    "previous_failures": new_failures,
+                    "participation": new_part,
+                }
+                update_student_profile(campus_id, updated_payload)
+                st.toast("✅ Academic records successfully updated and synchronized!", icon="🎉")
+                st.success("✅ Profile updated in database! AI risk model recalculated.")
+                st.rerun()
+
 
     # =====================================================
     # 3. AI RISK ANALYSIS SECTION
@@ -487,17 +530,17 @@ def student_dashboard():
             
             w_c1, w_c2, w_c3 = st.columns(3)
             with w_c1:
-                w_att = st.slider("Projected Attendance (%)", 0.0, 100.0, float(st.session_state.sim_att), step=1.0, key="sim_att")
-                w_internal = st.slider("Projected Internal Marks", 0.0, 100.0, float(st.session_state.sim_internal), step=1.0, key="sim_internal")
-                w_assign = st.slider("Projected Assignment Score", 0.0, 100.0, float(st.session_state.sim_assign), step=1.0, key="sim_assign")
+                w_att = st.slider("Projected Attendance (%)", 0.0, 100.0, step=1.0, key="sim_att")
+                w_internal = st.slider("Projected Internal Marks", 0.0, 100.0, step=1.0, key="sim_internal")
+                w_assign = st.slider("Projected Assignment Score", 0.0, 100.0, step=1.0, key="sim_assign")
             with w_c2:
-                w_study = st.slider("Projected Study Hours / Day", 0.0, 12.0, float(st.session_state.sim_study), step=0.5, key="sim_study")
-                w_quiz = st.slider("Projected Quiz Score", 0.0, 100.0, float(st.session_state.sim_quiz), step=1.0, key="sim_quiz")
-                w_part = st.slider("Projected Participation", 0.0, 100.0, float(st.session_state.sim_part), step=1.0, key="sim_part")
+                w_study = st.slider("Projected Study Hours / Day", 0.0, 12.0, step=0.5, key="sim_study")
+                w_quiz = st.slider("Projected Quiz Score", 0.0, 100.0, step=1.0, key="sim_quiz")
+                w_part = st.slider("Projected Participation", 0.0, 100.0, step=1.0, key="sim_part")
             with w_c3:
-                w_practical = st.slider("Projected Practical Marks", 0.0, 100.0, float(st.session_state.sim_practical), step=1.0, key="sim_practical")
-                w_backlogs = st.number_input("Projected Active Backlogs", 0, 15, int(st.session_state.sim_backlogs), key="sim_backlogs")
-                w_failures = st.number_input("Previous Failures", 0, 15, int(st.session_state.sim_failures), key="sim_failures")
+                w_practical = st.slider("Projected Practical Marks", 0.0, 100.0, step=1.0, key="sim_practical")
+                w_backlogs = st.number_input("Projected Active Backlogs", min_value=0, max_value=15, step=1, key="sim_backlogs")
+                w_failures = st.number_input("Previous Failures", min_value=0, max_value=15, step=1, key="sim_failures")
 
             sim_btn = st.button("🚀 Calculate Projected Outcome", use_container_width=True, type="primary")
 

@@ -6,6 +6,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 
 from auth import require_role, logout_user
+from database import update_student_profile
 from ui import inject_styles, render_sidebar, render_risk_badge, render_stat_card, render_hero, style_plotly_chart
 
 from intervention import (
@@ -311,6 +312,40 @@ def admin_dashboard():
                 fig_student.update_layout(coloraxis_showscale=False, yaxis=dict(range=[0, 100]))
                 style_plotly_chart(fig_student, height=300)
                 st.plotly_chart(fig_student, use_container_width=True)
+
+                with st.expander(f"✏️ Edit Academic Records for {selected_row['name']}"):
+                    with st.form(f"admin_edit_student_{selected_id}", border=False):
+                        a_c1, a_c2, a_c3 = st.columns(3)
+                        with a_c1:
+                            adm_att = st.number_input("Attendance (%)", min_value=0.0, max_value=100.0, value=float(selected_row["attendance"]), step=1.0)
+                            adm_internal = st.number_input("Internal Marks", min_value=0.0, max_value=100.0, value=float(selected_row["internal_marks"]), step=1.0)
+                            adm_assign = st.number_input("Assignment Score", min_value=0.0, max_value=100.0, value=float(selected_row["assignment_score"]), step=1.0)
+                            adm_cgpa = st.number_input("CGPA", min_value=0.0, max_value=10.0, value=float(selected_row["previous_cgpa"]), step=0.05)
+                        with a_c2:
+                            adm_study = st.number_input("Study Hours/Day", min_value=0.0, max_value=16.0, value=float(selected_row["study_hours"]), step=0.5)
+                            adm_backlogs = st.number_input("Active Backlogs", min_value=0, max_value=20, value=int(selected_row["backlogs"]), step=1)
+                            adm_failures = st.number_input("Previous Failures", min_value=0, max_value=20, value=int(selected_row["previous_failures"]), step=1)
+                        with a_c3:
+                            adm_practical = st.number_input("Practical Marks", min_value=0.0, max_value=100.0, value=float(selected_row["practical_marks"]), step=1.0)
+                            adm_quiz = st.number_input("Quiz Score", min_value=0.0, max_value=100.0, value=float(selected_row["quiz_score"]), step=1.0)
+                            adm_part = st.number_input("Participation", min_value=0.0, max_value=100.0, value=float(selected_row["participation"]), step=1.0)
+
+                        if st.form_submit_button("💾 Save Student Record Updates", type="primary", use_container_width=True):
+                            update_student_profile(selected_id, {
+                                "attendance": adm_att,
+                                "internal_marks": adm_internal,
+                                "assignment_score": adm_assign,
+                                "previous_cgpa": adm_cgpa,
+                                "study_hours": adm_study,
+                                "backlogs": adm_backlogs,
+                                "practical_marks": adm_practical,
+                                "quiz_score": adm_quiz,
+                                "previous_failures": adm_failures,
+                                "participation": adm_part,
+                            })
+                            st.toast(f"✅ Updated records for {selected_row['name']}!", icon="🎉")
+                            st.success(f"Records updated for {selected_row['name']} ({selected_id})")
+                            st.rerun()
 
 
     # =====================================================
