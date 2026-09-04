@@ -1,0 +1,2 @@
+total_students,best_model,accuracy,precision,recall,f1_score
+2500,Logistic Regression,86.2,86.33,86.2,85.79
