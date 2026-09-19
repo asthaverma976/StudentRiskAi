@@ -1,0 +1,126 @@
+text,sentiment,category
+I really appreciate how the Physics faculty encourages class participation.,Positive,Faculty
+Parking space on campus is insufficient for the number of students.,Negative,Infrastructure
+Canteen staff maintained good hygiene during the health inspection.,Positive,Canteen
+Campus washrooms need better maintenance overall.,Neutral,Infrastructure
+Canteen prices have increased without any improvement in quality.,Negative,Canteen
+The Mathematics faculty rarely comes to class on time and often cancels lectures.,Negative,Faculty
+The library computers are outdated and very slow to use.,Negative,Library
+There has been no hot water in the hostel bathrooms for a week.,Negative,Hostel
+Canteen billing counter is slow and causes unnecessary delay.,Negative,Canteen
+The exam timetable clashes between two core subjects.,Negative,Examination
+New canteen staff are friendly and quick with orders.,Positive,Canteen
+The Physics teacher does not explain topics properly and rushes through the syllabus.,Negative,Faculty
+The Mathematics faculty member shows favoritism towards certain students.,Negative,Faculty
+Revaluation process for exams takes too long to get a response.,Negative,Examination
+The Computer Science faculty member shows favoritism towards certain students.,Negative,Faculty
+Library Wi-Fi does not work most of the time.,Negative,Library
+The canteen kitchen looks unhygienic and needs urgent cleaning.,Negative,Canteen
+Hostel room allotment process could be more transparent.,Neutral,Hostel
+There is a water leakage problem in the corridor near the lab.,Negative,Infrastructure
+There is no proper silence maintained in the library reading area.,Negative,Library
+Library staff are helpful in locating books and journals quickly.,Positive,Library
+The Computer Science professor explains concepts very clearly and answers all doubts.,Positive,Faculty
+The book issue process at the library takes a while but works fine.,Neutral,Library
+"Results for the last exam were declared on time, thank you.",Positive,Examination
+"The teaching pace for Physics is okay, nothing special to mention.",Neutral,Faculty
+The classroom projector could be replaced with a newer model.,Neutral,Infrastructure
+Our Chemistry teacher is very supportive and takes extra doubt-clearing sessions.,Positive,Faculty
+The Physics professor explains concepts very clearly and answers all doubts.,Positive,Faculty
+Exam hall seating arrangement could be more spacious.,Neutral,Examination
+Hostel curfew timing is too strict compared to nearby colleges.,Neutral,Hostel
+The Physics professor gives very low marks without proper explanation.,Negative,Faculty
+"Classroom projectors and AC have been upgraded, much better now.",Positive,Infrastructure
+"Found a foreign object in the food served at the canteen, very concerning.",Negative,Canteen
+Stale food was served at the canteen twice this week.,Negative,Canteen
+The college building elevator has been out of order for a long time.,Negative,Infrastructure
+Reference section of the library is poorly organized and hard to navigate.,Negative,Library
+It would help if the Mathematics faculty shared notes after every class.,Neutral,Faculty
+The canteen introduced a new healthy meal option that students liked.,Positive,Canteen
+Faculty attendance and punctuality could be improved in general.,Neutral,Faculty
+Hostel rooms are overcrowded with three students in a two-seater room.,Negative,Hostel
+"The teaching pace for Chemistry is okay, nothing special to mention.",Neutral,Faculty
+Marks for the examination were uploaded late on the portal.,Negative,Examination
+It would help if the Computer Science faculty shared notes after every class.,Neutral,Faculty
+Answer sheets were not evaluated properly and marks seem incorrect.,Negative,Examination
+The exam schedule was well planned and communicated in advance.,Positive,Examination
+"Library timings are too short, it closes before evening classes end.",Negative,Library
+It would help if the Chemistry faculty shared notes after every class.,Neutral,Faculty
+Corridor lighting on the second floor needs to be fixed.,Neutral,Infrastructure
+The Computer Science teacher does not explain topics properly and rushes through the syllabus.,Negative,Faculty
+"Security at the hostel gate is very lax, anyone can walk in.",Negative,Hostel
+Playground equipment is damaged and unsafe to use.,Negative,Infrastructure
+The Chemistry teacher does not explain topics properly and rushes through the syllabus.,Negative,Faculty
+It would help if the Physics faculty shared notes after every class.,Neutral,Faculty
+The library could extend its working hours during exam season.,Neutral,Library
+Hostel laundry service is unreliable and often delayed.,Negative,Hostel
+The canteen food is tasty and reasonably priced.,Positive,Canteen
+Our Computer Science teacher is very supportive and takes extra doubt-clearing sessions.,Positive,Faculty
+The library has a great collection of reference books for our course.,Positive,Library
+Lab equipment is outdated and insufficient for the batch size.,Negative,Infrastructure
+The newly built auditorium is spacious and well equipped.,Positive,Infrastructure
+Canteen could add more seating during exam season.,Neutral,Canteen
+The Computer Science faculty rarely comes to class on time and often cancels lectures.,Negative,Faculty
+The hostel Wi-Fi keeps disconnecting and is unusable at night.,Negative,Hostel
+The exam invigilators were fair and helpful during the test.,Positive,Examination
+Canteen menu could include more variety and healthy options.,Neutral,Canteen
+I really appreciate how the Mathematics faculty encourages class participation.,Positive,Faculty
+Some faculty members are rude and dismissive when students ask questions.,Negative,Faculty
+The hostel washrooms are dirty and not cleaned regularly.,Negative,Hostel
+"The teaching pace for Computer Science is okay, nothing special to mention.",Neutral,Faculty
+I really appreciate how the Computer Science faculty encourages class participation.,Positive,Faculty
+Our practical exam is next week but the equipment is not working.,Negative,Examination
+The Chemistry professor is always available during office hours for guidance.,Positive,Faculty
+The canteen has improved hygiene a lot since last semester.,Positive,Canteen
+The library does not have enough copies of prescribed textbooks.,Negative,Library
+Our Physics teacher is very supportive and takes extra doubt-clearing sessions.,Positive,Faculty
+The Chemistry faculty member shows favoritism towards certain students.,Negative,Faculty
+Hostel warden is very helpful and resolves issues quickly.,Positive,Hostel
+The new hostel Wi-Fi upgrade has made things much better.,Positive,Hostel
+The Mathematics professor is always available during office hours for guidance.,Positive,Faculty
+Hostel mess food quality has dropped drastically this month.,Negative,Hostel
+Exam hall was too hot and had no functioning fans during the test.,Negative,Examination
+Hostel Wi-Fi speed has improved after the recent upgrade.,Positive,Hostel
+Library could add more group study rooms.,Neutral,Library
+Practical exam evaluation was transparent and well organized.,Positive,Examination
+The Chemistry faculty rarely comes to class on time and often cancels lectures.,Negative,Faculty
+The computer lab has several non-working computers and our practical exam is next week.,Negative,Infrastructure
+The hostel rooms are clean and well maintained this semester.,Positive,Hostel
+Exam admit cards were issued a bit late this semester.,Neutral,Examination
+The Mathematics teacher does not explain topics properly and rushes through the syllabus.,Negative,Faculty
+The Mathematics professor explains concepts very clearly and answers all doubts.,Positive,Faculty
+The new smart classrooms have improved the learning experience.,Positive,Infrastructure
+"The library added new e-book access for students, very useful.",Positive,Library
+The newly renovated reading room in the library is very comfortable.,Positive,Library
+There is no proper drinking water facility on the hostel floor.,Negative,Hostel
+The hostel could use better lighting in the common areas.,Neutral,Hostel
+Library fine system is confusing and not explained properly.,Negative,Library
+The campus Wi-Fi coverage has improved significantly this year.,Positive,Infrastructure
+"The online exam server crashed in the middle of the test, causing panic.",Negative,Examination
+Classroom fans and lights are broken and not repaired for months.,Negative,Infrastructure
+The Mathematics professor gives very low marks without proper explanation.,Negative,Faculty
+There are always long queues at the canteen during lunch break.,Negative,Canteen
+The question paper for the exam did not match the syllabus taught.,Negative,Examination
+Online exam portal worked smoothly without any glitches this time.,Positive,Examination
+Library seating capacity is limited during peak hours.,Neutral,Library
+There is no proper feedback given by faculty after internal assessments.,Negative,Faculty
+The Computer Science professor gives very low marks without proper explanation.,Negative,Faculty
+Library staff helped me find research papers for my project quickly.,Positive,Library
+The lecture hall AC has not been working for the past two weeks.,Negative,Infrastructure
+Our Mathematics teacher is very supportive and takes extra doubt-clearing sessions.,Positive,Faculty
+Hostel rules are fine but could be communicated more clearly.,Neutral,Hostel
+Canteen seating area gets full quickly during peak hours.,Neutral,Canteen
+I really appreciate how the Chemistry faculty encourages class participation.,Positive,Faculty
+The canteen food quality has gone down and often tastes stale.,Negative,Canteen
+Hostel mess introduced a new weekly menu that students enjoy.,Positive,Hostel
+The exam duration for the practical test seems a bit short.,Neutral,Examination
+The Physics professor is always available during office hours for guidance.,Positive,Faculty
+Campus infrastructure for sports facilities has improved this year.,Positive,Infrastructure
+The Physics faculty rarely comes to class on time and often cancels lectures.,Negative,Faculty
+The Chemistry professor gives very low marks without proper explanation.,Negative,Faculty
+The Physics faculty member shows favoritism towards certain students.,Negative,Faculty
+"The teaching pace for Mathematics is okay, nothing special to mention.",Neutral,Faculty
+Campus Wi-Fi is extremely slow and disconnects frequently during online classes.,Negative,Infrastructure
+The Chemistry professor explains concepts very clearly and answers all doubts.,Positive,Faculty
+The Computer Science professor is always available during office hours for guidance.,Positive,Faculty
+There was a major error in the question paper during the mid-term exam.,Negative,Examination
